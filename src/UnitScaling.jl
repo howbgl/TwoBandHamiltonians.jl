@@ -1,10 +1,21 @@
 
 export UnitScaling
+"""
+    UnitScaling(timescale,lengthscale)
+
+Represents a physical length- and time-scale used for non-dimensionalization of a system.
+
+# Examples
+```jldoctest
+julia> us = UnitScaling(u"1.0s",u"1.0m")
+UnitScaling{Float64}(1.0e15, 1.0e9)
+```
+"""
 struct UnitScaling{T<:Real}
     timescale::T
     lengthscale::T
 end
-function UnitScaling(timescale,lengthscale) 
+function UnitScaling(timescale::Unitful.Time,lengthscale::Unitful.Length) 
     return UnitScaling(ustrip(u"fs",timescale),ustrip(u"nm",lengthscale))
 end
 
