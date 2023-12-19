@@ -38,9 +38,9 @@ export σx_vv,σy_vv,σz_vv
 σx_cv(hx::Number,hy::Number,hz::Number) = (im * hy + hx*hz/ϵ(hx,hy,hz)) / (hx + im*hy)
 σy_cv(hx::Number,hy::Number,hz::Number) = (-im * hx + hy*hz/ϵ(hx,hy,hz)) / (hx + im*hy)
 σz_cv(hx::Number,hy::Number,hz::Number) = (-hx + im*hy) / ϵ(hx,hy,hz)
-σx_vc(hx::Number,hy::Number,hz::Number) = conj(σx_cv(hx,hy,hz))
-σy_vc(hx::Number,hy::Number,hz::Number) = conj(σy_cv(hx,hy,hz))
-σz_vc(hx::Number,hy::Number,hz::Number) = conj(σz_cv(hx,hy,hz))
+σx_vc(hx::Number,hy::Number,hz::Number) = (-im * hy + hx*hz/ϵ(hx,hy,hz)) / (hx - im*hy)
+σy_vc(hx::Number,hy::Number,hz::Number) = (im * hx + hy*hz/ϵ(hx,hy,hz)) / (hx - im*hy)
+σz_vc(hx::Number,hy::Number,hz::Number) = (-hx - im*hy) / ϵ(hx,hy,hz)
 
 σx_cc(hx::Number,hy::Number,hz::Number) = zero(eltype(promote(hx,hy,hz)))
 σy_cc(hx::Number,hy::Number,hz::Number) = zero(eltype(promote(hx,hy,hz)))
@@ -90,7 +90,6 @@ vy_vv(h::GeneralTwoBand,kx,ky) = vμ_vv(hvec(h,kx,ky),dhdky(h,kx,ky))
 
 n2(h::SVector{3,<:Number}) = 2ϵ(h)*(ϵ(h) + h[3])
 
-export dμ_cv,dμ_vc
 function dμ_cv(h::SVector{3,<:Number},dh::SVector{3,<:Number})
     -im*vμ_cv(h,dh) / Δϵ(h)
 end

@@ -12,7 +12,7 @@ dhdkx(h::GappedDirac,kx,ky) = SA[one(typeof(h.m)),zero(typeof(h.m)),zero(typeof(
 dhdky(h::GappedDirac,kx,ky) = SA[zero(typeof(h.m)),one(typeof(h.m)),zero(typeof(h.m))]
 
 # Jacobian ∂h_i/∂k_j
-jac(h::GappedDirac,kx,ky) = SMatrix(
-    one(typeof(h.m)) zero(typeof(h.m)) zero(typeof(h.m));
-    zero(typeof(h.m)) one(typeof(h.m)) zero(typeof(h.m));
-    zero(typeof(h.m)) zero(typeof(h.m)) zero(typeof(h.m)))
+jac(h::GappedDirac,kx,ky) = SA[
+    one(typeof(h.m)) zero(typeof(h.m)) zero(typeof(h.m))
+    zero(typeof(h.m)) one(typeof(h.m)) zero(typeof(h.m))
+    zero(typeof(h.m)) zero(typeof(h.m)) zero(typeof(h.m))]
