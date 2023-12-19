@@ -1,44 +1,17 @@
 export GappedDirac
 struct GappedDirac{T<:Real} <: Hamiltonian{T}
     Δ::T
-    t1::T
-    t2::T
-end
-GappedDirac(Δ::Real,t1::Real,t2::Real)      = GappedDirac(promote(Δ,t1,t2)...)
-GappedDirac(Δ::Real,t1::Real)               = GappedDirac(Δ,t1,Inf)
-function GappedDirac(us::UnitScaling{T},mass::Unitful.Energy{T},
-        fermivelocity::Unitful.Velocity{T},dephasing1::Unitful.Time{T},
-        dephasing2::Unitful.Time{T}) where{T<:Real}
-    p   = getparams(us)
-    Δ   = uconvert(Unitful.NoUnits,mass*p.timescale/Unitful.ħ)
-    t1  = uconvert(Unitful.NoUnits,dephasing1/p.timescale)
-    t2  = uconvert(Unitful.NoUnits,dephasing2/p.timescale)
-    return GappedDirac(Δ,t1,t2)
-end
-function GappedDirac(us::UnitScaling{T},mass::Unitful.Energy{T},
-    fermivelocity::Unitful.Velocity{T},dephasing2::Unitful.Time{T}) where{T<:Real}
-    return GappedDirac(us,mass,fermivelocity,zero(T),dephasing2)
 end
 
-function scalegapped_dirac(mass::Unitful.Energy{T},fermivelocity::Unitful.Velocity{T},
-                    dephasing1::Unitful.Time{T},dephasing2::Unitful.Time{T};
-                    tc_factor=0.1) where{T<:Real}
-    mul = convert(T,tc_factor)
-    tc = uconvert(u"fs",mul*Unitful.ħ/mass)
+
+function scalegapped_dirac(mass::Unitful.Energy,fermivelocity::Unitful.Velocity)
+    tc = uconvert(u"fs",Unitful.ħ/mass)
     lc = uconvert(u"nm",fermivelocity*tc)
     us = UnitScaling(tc,lc)
-    return us,GappedDirac(us,mass,fermivelocity,dephasing1,dephasing2)
-end
-function scalegapped_dirac(umass,ufermivelocity,udephasingtime;tc_factor=0.1)
-    return scalegapped_dirac(umass,ufermivelocity,Unitful.Quantity(Inf,u"s"),udephasingtime,
-                            tc_factor=tc_factor)
-end
-function scalegapped_dirac(umass,ufermivelocity,udephasingtime1,udephasingtime2)
-    return scalegapped_dirac(promote(umass,ufermivelocity,udephasingtime1,udephasingtime2)...;
-                            tc_factor=tc_factor)
+    return us,GappedDirac(mass)
 end
 
-getparams(h::GappedDirac) = (Δ=h.Δ,t1=h.t1,t2=h.t2,vF=one(h.t1))
+getparams(h::GappedDirac) = (Δ=h.Δ,vF=one(h.Δ))
 
 getϵ(h::GappedDirac)     = (kx,ky) -> sqrt(kx^2+ky^2+h.Δ^2)
 getdx_cc(h::GappedDirac) = (kx,ky) -> ky * (one(h.t1) -h.Δ/sqrt(kx^2+ky^2+h.Δ^2)) / (2*(kx^2 + ky^2))
@@ -83,22 +56,9 @@ end
 function printparamsSI(h::GappedDirac,us::UnitScaling;digits=3)
 
     p   = getparams(h)
-    Δ   = energySI(p.Δ,us)
-    t1  = timeSI(p.t1,us)
-    t2  = timeSI(p.t2,us)
-    vF  = velocitySI(p.vF,us)
-
-    symbols     = [:Δ,:t1,:t2,:vF]
-    valuesSI    = [Δ,t1,t2,vF]
-    values      = [getproperty(p,s) for s in symbols]
-
-    str = ""
-
-    for (s,v,vsi) in zip(symbols,values,valuesSI)
-        valSI   = round(typeof(vsi),vsi,sigdigits=digits)
-        val     = round(v,sigdigits=digits)
-        str     *= "$s = $valSI ($val)\n"
-    end
-    return str
+    Δ   = round(energySI(p.Δ,us),sigditis=digits)
+    vF  = round(velocitySI(p.vF,us),sigdigits=digits)
+    
+    return "m = $Δ ($(h.Δ))\nvF = $vF ($(1.0))"
 end
 
