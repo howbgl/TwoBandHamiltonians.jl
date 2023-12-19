@@ -7,7 +7,7 @@ Represents a physical length- and time-scale used for non-dimensionalization of 
 
 # Examples
 ```jldoctest
-julia> us = UnitScaling(u"1.0s",u"1.0m")
+julia> using Unitful; us = UnitScaling(u"1.0s",u"1.0m")
 UnitScaling{Float64}(1.0e15, 1.0e9)
 ```
 """
