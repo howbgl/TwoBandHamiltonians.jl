@@ -94,7 +94,7 @@ function dμ_cv(h::SVector{3,<:Number},dh::SVector{3,<:Number})
     -im*vμ_cv(h,dh) / Δϵ(h)
 end
 function dμ_vc(h::SVector{3,<:Number},dh::SVector{3,<:Number})
-    -im*vμ_vc(h,dh) / Δϵ(h)
+    im*vμ_vc(h,dh) / Δϵ(h)
 end
 
 export dx_cc,dy_cc,dx_vv,dy_vv,dx_cv,dx_vc,dy_cv,dy_vc
