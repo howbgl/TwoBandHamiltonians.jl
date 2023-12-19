@@ -2,6 +2,9 @@ export GeneralTwoBand
 
 abstract type GeneralTwoBand{T} <: Hamiltonian{T} end
 
+export hvec
+hvec(h::GeneralTwoBand,kx,ky) = SA[hx(h,kx,ky),hy(h,kx,ky),hz(h,kx,ky)]
+
 export Δϵ,ϵ
 Δϵ(h::GeneralTwoBand,kx,ky) = 2ϵ(h,kx,ky)
 ϵ(h::GeneralTwoBand,kx,ky)  = sqrt(hx(h,kx,ky)^2 + hy(h,kx,ky)^2 + hz(h,kx,ky)^2)
@@ -50,21 +53,73 @@ export σx_vv,σy_vv,σz_vv
 σx_cv(h::SVector{3,<:Number}) = (im * h[2] + h[1]*h[3]/ϵ(h)) / (h[1] + im*h[2])
 σy_cv(h::SVector{3,<:Number}) = (-im * h[1] + h[2]*h[3]/ϵ(h)) / (h[1] + im*h[2])
 σz_cv(h::SVector{3,<:Number}) = (-h[1] + im*h[2]) / ϵ(h)
-σx_vc(h::SVector{3,<:Number}) = conj(σx_cv(h))
-σy_vc(h::SVector{3,<:Number}) = conj(σy_cv(h))
-σz_vc(h::SVector{3,<:Number}) = conj(σz_cv(h))
+σx_vc(h::SVector{3,<:Number}) = (-im * h[2] + h[1]*h[3]/ϵ(h)) / (h[1] - im*h[2])
+σy_vc(h::SVector{3,<:Number}) = (im * h[1] + h[2]*h[3]/ϵ(h)) / (h[1] - im*h[2])
+σz_vc(h::SVector{3,<:Number}) = (-h[1] - im*h[2]) / ϵ(h)
 
 
 export vμ_cv,vμ_vc
 function vμ_cv(h::SVector{3,<:Number},dh::SVector{3,<:Number})
     return dh[1]*σx_cv(h) + dh[2]*σy_cv(h) + dh[3]*σz_cv(h) 
 end
-vμ_vc(h::SVector{3,<:Number},dh::SVector{3,<:Number}) = conj(vμ_cv(h,dh))
+function vμ_cv(h::SVector{3,<:Number},dh::SVector{3,<:Number})
+    return dh[1]*σx_vc(h) + dh[2]*σy_vc(h) + dh[3]*σz_vc(h) 
+end
 
 export vμ_cc,vμ_vv
 function vμ_cc(h::SVector{3,<:Number},dh::SVector{3,<:Number})
-    return (h[1]*dh[1] + h[2]*dh[2] +h[3]*dh[3]) / ϵ(h)
+    return (h[1]*dh[1] + h[2]*dh[2] + h[3]*dh[3]) / ϵ(h)
 end
 function vμ_vv(h::SVector{3,<:Number},dh::SVector{3,<:Number})
-    return -(h[1]*dh[1] + h[2]*dh[2] +h[3]*dh[3]) / ϵ(h)
+    return -(h[1]*dh[1] + h[2]*dh[2] + h[3]*dh[3]) / ϵ(h)
 end
+
+export vx_cv,vx_vc,vx_cc,vx_vv
+vx_cv(h::GeneralTwoBand,kx,ky) = vμ_cv(hvec(h,kx,ky),dhdkx(h,kx,ky))
+vx_vc(h::GeneralTwoBand,kx,ky) = vμ_vc(hvec(h,kx,ky),dhdkx(h,kx,ky))
+vx_cc(h::GeneralTwoBand,kx,ky) = vμ_cc(hvec(h,kx,ky),dhdkx(h,kx,ky))
+vx_vv(h::GeneralTwoBand,kx,ky) = vμ_vv(hvec(h,kx,ky),dhdkx(h,kx,ky))
+
+export vy_cv,vy_vc,vy_cc,vy_vv
+vy_cv(h::GeneralTwoBand,kx,ky) = vμ_cv(hvec(h,kx,ky),dhdky(h,kx,ky))
+vy_vc(h::GeneralTwoBand,kx,ky) = vμ_vc(hvec(h,kx,ky),dhdky(h,kx,ky))
+vy_cc(h::GeneralTwoBand,kx,ky) = vμ_cc(hvec(h,kx,ky),dhdky(h,kx,ky))
+vy_vv(h::GeneralTwoBand,kx,ky) = vμ_vv(hvec(h,kx,ky),dhdky(h,kx,ky))
+
+
+
+n2(h::SVector{3,<:Number}) = 2ϵ(h)*(ϵ(h) + h[3])
+
+export dμ_cv,dμ_vc
+function dμ_cv(h::SVector{3,<:Number},dh::SVector{3,<:Number})
+    -im*vμ_cv(h,dh) / Δϵ(h)
+end
+function dμ_vc(h::SVector{3,<:Number},dh::SVector{3,<:Number})
+    -im*vμ_vc(h,dh) / Δϵ(h)
+end
+
+export dx_cc,dy_cc,dx_vv,dy_vv,dx_cv,dx_vc,dy_cv,dy_vc
+function dx_cc(h::SVector{3,<:Number},jac::SMatrix{3,3,<:Number})
+    return (jac[1,1]*h[2] - h[1]*jac[2,1]) / n2(h)
+end
+function dy_cc(h::SVector{3,<:Number},jac::SMatrix{3,3,<:Number})
+    return (jac[1,2]*h[2] - h[1]*jac[2,2]) / n2(h)
+end
+function dx_vv(h::SVector{3,<:Number},jac::SMatrix{3,3,<:Number})
+    return -(jac[1,1]*h[2] - h[1]*jac[2,1]) / n2(h)
+end
+function dy_vv(h::SVector{3,<:Number},jac::SMatrix{3,3,<:Number})
+    return -(jac[1,2]*h[2] - h[1]*jac[2,2]) / n2(h)
+end
+
+dx_cv(h::GeneralTwoBand,kx,ky) = dμ_cv(hvec(h,kx,ky),dhdkx(h,kx,ky))
+dx_vc(h::GeneralTwoBand,kx,ky) = dμ_vc(hvec(h,kx,ky),dhdkx(h,kx,ky))
+dx_cc(h::GeneralTwoBand,kx,ky) = dx_cc(hvec(h,kx,ky),jac(h,kx,ky))
+dx_vv(h::GeneralTwoBand,kx,ky) = dx_vv(hvec(h,kx,ky),jac(h,kx,ky))
+
+dy_cv(h::GeneralTwoBand,kx,ky) = dμ_cv(hvec(h,kx,ky),dhdky(h,kx,ky))
+dy_vc(h::GeneralTwoBand,kx,ky) = dμ_vc(hvec(h,kx,ky),dhdky(h,kx,ky))
+dy_cc(h::GeneralTwoBand,kx,ky) = dy_cc(hvec(h,kx,ky),jac(h,kx,ky))
+dy_vv(h::GeneralTwoBand,kx,ky) = dy_vv(hvec(h,kx,ky),jac(h,kx,ky))
+
+
