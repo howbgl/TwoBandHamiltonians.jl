@@ -1,6 +1,6 @@
 
 export UnitScaling
-struct UnitScaling{T<:Real} <: SimulationComponent{T}
+struct UnitScaling{T<:Real}
     timescale::T
     lengthscale::T
 end
