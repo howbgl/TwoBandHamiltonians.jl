@@ -1,6 +1,7 @@
 using TwoBandHamiltonians
 using Test
+using Unitful
 
 @testset "TwoBandHamiltonians.jl" begin
-    # Write your tests here.
+    
 end

@@ -1,5 +1,6 @@
 using TwoBandHamiltonians
 using Documenter
+using Unitful
 
 DocMeta.setdocmeta!(TwoBandHamiltonians, :DocTestSetup, :(using TwoBandHamiltonians); recursive=true)
 
