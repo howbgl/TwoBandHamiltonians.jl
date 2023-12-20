@@ -62,7 +62,7 @@ export vμ_cv,vμ_vc
 function vμ_cv(h::SVector{3,<:Number},dh::SVector{3,<:Number})
     return dh[1]*σx_cv(h) + dh[2]*σy_cv(h) + dh[3]*σz_cv(h) 
 end
-function vμ_cv(h::SVector{3,<:Number},dh::SVector{3,<:Number})
+function vμ_vc(h::SVector{3,<:Number},dh::SVector{3,<:Number})
     return dh[1]*σx_vc(h) + dh[2]*σy_vc(h) + dh[3]*σz_vc(h) 
 end
 
