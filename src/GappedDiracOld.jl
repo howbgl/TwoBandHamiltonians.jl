@@ -1,4 +1,21 @@
 export GappedDiracOld
+"""
+    GappedDiracOld{T<:Real} <: Hamiltonian{T}
+
+Legacy hard-coded. Holds the parameter of a dimensionless massive Dirac Hamiltonian.
+
+The Hamiltonian ``\\hat{H} =  k_x\\sigma_x + k_y\\sigma_y + \\Delta\\sigma_z`` has one 
+dimensionless parameter ``\\Delta``.
+
+# Examples
+```jldoctest
+julia> h = GappedDiracOld(0.1)
+GappedDiracOld{Float64}(0.1)
+```
+
+# See also
+[`UnitScaling(timescale,lengthscale)`](@ref)
+"""
 struct GappedDiracOld{T<:Real} <: Hamiltonian{T}
     Δ::T
 end

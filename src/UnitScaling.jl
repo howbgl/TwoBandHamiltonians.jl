@@ -10,6 +10,9 @@ Represents a physical length- and time-scale used for non-dimensionalization of 
 julia> using Unitful; us = UnitScaling(u"1.0s",u"1.0m")
 UnitScaling{Float64}(1.0e15, 1.0e9)
 ```
+
+# Further information
+See [here](https://en.wikipedia.org/w/index.php?title=Nondimensionalization&oldid=1166582079)
 """
 struct UnitScaling{T<:Real}
     timescale::T
