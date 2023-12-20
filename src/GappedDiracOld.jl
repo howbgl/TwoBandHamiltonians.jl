@@ -4,8 +4,8 @@ export GappedDiracOld
 
 Legacy hard-coded. Holds the parameter of a dimensionless massive Dirac Hamiltonian.
 
-The Hamiltonian ``\\hat{H} =  k_x\\sigma_x + k_y\\sigma_y + \\Delta\\sigma_z`` has one 
-dimensionless parameter ``\\Delta``.
+The Hamiltonian reads ``\\hat{H} =  k_x\\sigma_x + k_y\\sigma_y + \\Delta\\sigma_z`` such 
+that ``2\\Delta`` is the bandgap at ``\\vec{k}=0``
 
 # Examples
 ```jldoctest

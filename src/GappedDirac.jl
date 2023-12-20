@@ -1,5 +1,16 @@
 
 export GappedDirac
+"""
+    GappedDirac{T<:Real} <: GeneralTwoBand{T}
+
+Holds the parameter of a dimensionless massive Dirac Hamiltonian.
+
+The Hamiltonian reads ``\\hat{H} =  k_x\\sigma_x + k_y\\sigma_y + m\\sigma_z`` such 
+that ``2m` is the bandgap at ``\\vec{k}=0``
+
+# See also
+[`GeneralTwoBand{T} <: Hamiltonian{T}`](@ref)
+"""
 struct GappedDirac{T<:Real} <: GeneralTwoBand{T} 
     m::T
 end

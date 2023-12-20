@@ -1,5 +1,24 @@
 export GeneralTwoBand
+"""
+    GeneralTwoBand{T} <: Hamiltonian{T}
 
+Supertype of all 2x2 Hamiltonians with all matrixelements via dispatch.
+
+The idea is that all Hamiltonians of the form
+
+``\\hat{H} = \\vec{h}(\\vec{k})\\cdot\\vec{\\sigma}``
+
+can be diagonalized analytically and hence most desired matrixelements such as velocities or
+dipoles can be expressed solely through 
+    
+``\\vec{h}(\\vec{k})=[h_x(\\vec{k}),h_y(\\vec{k}),h_z(\\vec{k})]``
+
+and its derivatives with respect to ``k_\\mu``. Any particular Hamiltonian deriving form
+GeneralTwoBand{T} must then only implement ``\\vec{h}(\\vec{k})`` and its derivatives.
+
+# See also
+[`GappedDirac{T<:Real} <: GeneralTwoBand{T}`](@ref)
+"""
 abstract type GeneralTwoBand{T} <: Hamiltonian{T} end
 
 export hvec
