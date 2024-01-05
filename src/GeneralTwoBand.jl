@@ -7,14 +7,14 @@ Supertype of all 2x2 Hamiltonians with all matrixelements via dispatch.
 The idea is that all Hamiltonians of the form
 
 ```math
-\hat{H} = \vec{h}(\vec{k})\cdot\vec{\sigma}
+\\hat{H} = \\vec{h}(\\vec{k})\\cdot\\vec{\\sigma}
 ```
 
 can be diagonalized analytically and hence most desired matrixelements such as velocities or
 dipoles can be expressed solely through 
     
 ```math
-\vec{h}(\vec{k})=[h_x(\vec{k}),h_y(\vec{k}),h_z(\vec{k})]
+\\vec{h}(\\vec{k})=[h_x(\\vec{k}),h_y(\\vec{k}),h_z(\\vec{k})]
 ```
 
 and its derivatives with respect to ``k_\\mu``. Any particular Hamiltonian deriving form
