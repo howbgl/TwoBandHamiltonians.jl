@@ -9,7 +9,7 @@ The Hamiltonian reads
 ```julia
 \\hat{H} = k_x\\sigma_x + k_y\\sigma_y + m\\sigma_z
 ``` 
-such that ``\vec{h}=[k_x,k_y,m]``.
+such that ``\\vec{h}=[k_x,k_y,m]``.
 
 # See also
 [`GeneralTwoBand`](@ref TwoBandHamiltonians.GeneralTwoBand)
