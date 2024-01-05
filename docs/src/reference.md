@@ -1,13 +1,15 @@
-# Index
+# Reference
 
 ```@meta
 CurrentModule = TwoBandHamiltonians
 ```
 
+## Index
+
 ```@index
 ```
 
-# Docstrings
+## Docstrings
 
 ```@autodocs
 Modules = [TwoBandHamiltonians]
