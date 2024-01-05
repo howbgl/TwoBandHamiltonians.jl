@@ -31,7 +31,9 @@ the eigenstates used here in the following:
 ```math
 \hat{H}\ket{\psi_\mu} = \epsilon_\mu\ket{\psi_\mu}
 ```
-with ``\\epsilon_{\\mu}(\\vec{k})=\\epsilon_{\\pm}(\\vec{k})=\\pm\\norm{\\vec{h}(\\vec{k})}.
+
+with ``\\epsilon_{\\mu}(\\vec{k})=\\epsilon_{\\pm}(\\vec{k})`` and
+``\\epsilon_{\\mu}(\\vec{k})=\\pm\\norm{\\vec{h}``.
 
 ## Contents
 
