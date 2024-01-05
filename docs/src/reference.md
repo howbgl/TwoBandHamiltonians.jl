@@ -1,8 +1,8 @@
-# Reference
-
 ```@meta
 CurrentModule = TwoBandHamiltonians
 ```
+
+# Reference
 
 ## Index
 
