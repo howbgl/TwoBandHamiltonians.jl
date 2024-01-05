@@ -4,7 +4,8 @@ CurrentModule = TwoBandHamiltonians
 
 # TwoBandHamiltonians
 
-Documentation for [TwoBandHamiltonians](https://github.com/howbgl/TwoBandHamiltonians.jl).
+Documentation for [TwoBandHamiltonians](https://github.com/howbgl/TwoBandHamiltonians.jl),
+a package that contains various operator matrix elements of 2x2 Hamiltonians.
 
 ## Contents
 ```@contents
@@ -12,8 +13,4 @@ Documentation for [TwoBandHamiltonians](https://github.com/howbgl/TwoBandHamilto
 
 ## Index
 ```@index
-```
-
-```@autodocs
-Modules = [TwoBandHamiltonians]
 ```
