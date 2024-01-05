@@ -2,7 +2,7 @@
 CurrentModule = TwoBandHamiltonians
 ```
 
-## Reference
+# Reference
 ```@autodocs
 Modules = [TwoBandHamiltonians]
 ```
