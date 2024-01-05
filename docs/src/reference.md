@@ -1,8 +1,8 @@
+# Index
+
 ```@meta
 CurrentModule = TwoBandHamiltonians
 ```
-
-# Index
 
 ```@index
 ```
