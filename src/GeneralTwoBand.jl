@@ -100,24 +100,48 @@ export vx_cv,vx_vc,vx_cc,vx_vv
     vx_cv(h,kx,ky)
 
 Returns the velocity operator matrix element ⟨ψ+|vx|ψ-⟩ at ``\\vec{k}=[k_x,k_y]``.
+
+# Example
+```jldoctest
+julia> h = GappedDirac(1.0); vx_cv(h,1.0,-1.0)
+0.7886751345948129 - 0.21132486540518708im
+```
 """
 vx_cv(h::GeneralTwoBand,kx,ky) = vμ_cv(hvec(h,kx,ky),dhdkx(h,kx,ky))
 """
     vx_vc(h,kx,ky)
 
 Returns the velocity operator matrix element ⟨ψ-|vx|ψ+⟩ at ``\\vec{k}=[k_x,k_y]``.
+
+# Example
+```jldoctest
+julia> h = GappedDirac(1.0); vx_vc(h,1.0,-1.0)
+0.7886751345948129 + 0.21132486540518708im
+```
 """
 vx_vc(h::GeneralTwoBand,kx,ky) = vμ_vc(hvec(h,kx,ky),dhdkx(h,kx,ky))
 """
     vx_cc(h,kx,ky)
 
 Returns the velocity operator matrix element ⟨ψ+|vx|ψ+⟩ at ``\\vec{k}=[k_x,k_y]``.
+
+# Example
+```jldoctest
+julia> h = GappedDirac(1.0); vx_cc(h,1.0,-1.0)
+0.5773502691896258
+```
 """
 vx_cc(h::GeneralTwoBand,kx,ky) = vμ_cc(hvec(h,kx,ky),dhdkx(h,kx,ky))
 """
     vx_vv(h,kx,ky)
 
 Returns the velocity operator matrix element ⟨ψ-|vx|ψ-⟩ at ``\\vec{k}=[k_x,k_y]``.
+
+# Example
+```jldoctest
+julia> h = GappedDirac(1.0); vx_vv(h,1.0,-1.0)
+-0.5773502691896258
+```
 """
 vx_vv(h::GeneralTwoBand,kx,ky) = vμ_vv(hvec(h,kx,ky),dhdkx(h,kx,ky))
 
@@ -126,24 +150,48 @@ export vy_cv,vy_vc,vy_cc,vy_vv
     vy_cv(h,kx,ky)
 
 Returns the velocity operator matrix element ⟨ψ+|vy|ψ-⟩ at ``\\vec{k}=[k_x,k_y]``.
+
+# Example
+```jldoctest
+julia> h = GappedDirac(1.0); vy_cv(h,1.0,-1.0)
+0.21132486540518708 - 0.7886751345948129im
+```
 """
 vy_cv(h::GeneralTwoBand,kx,ky) = vμ_cv(hvec(h,kx,ky),dhdky(h,kx,ky))
 """
     vy_vc(h,kx,ky)
 
 Returns the velocity operator matrix element ⟨ψ-|vy|ψ+⟩ at ``\\vec{k}=[k_x,k_y]``.
+
+# Example
+```jldoctest
+julia> h = GappedDirac(1.0); vy_vc(h,1.0,-1.0)
+0.21132486540518708 + 0.7886751345948129im
+```
 """
 vy_vc(h::GeneralTwoBand,kx,ky) = vμ_vc(hvec(h,kx,ky),dhdky(h,kx,ky))
 """
     vy_cc(h,kx,ky)
 
 Returns the velocity operator matrix element ⟨ψ+|vy|ψ+⟩ at ``\\vec{k}=[k_x,k_y]``.
+
+# Example
+```jldoctest
+julia> h = GappedDirac(1.0); vy_cc(h,1.0,-1.0)
+-0.5773502691896258
+```
 """
 vy_cc(h::GeneralTwoBand,kx,ky) = vμ_cc(hvec(h,kx,ky),dhdky(h,kx,ky))
 """
     vy_vv(h,kx,ky)
 
 Returns the velocity operator matrix element ⟨ψ-|vy|ψ-⟩ at ``\\vec{k}=[k_x,k_y]``.
+
+# Example
+```jldoctest
+julia> h = GappedDirac(1.0); vy_vv(h,1.0,-1.0)
+0.5773502691896258
+```
 """
 vy_vv(h::GeneralTwoBand,kx,ky) = vμ_vv(hvec(h,kx,ky),dhdky(h,kx,ky))
 
@@ -176,24 +224,48 @@ end
     dx_cv(h,kx,ky)
 
 Returns the dipole operator matrix element ⟨ψ+|x|ψ-⟩ at ``\\vec{k}=[k_x,k_y]``.
+
+# Example
+```jldoctest
+julia> h = GappedDirac(1.0); dx_cv(h,1.0,-1.0)
+-0.0610042339640731 - 0.22767090063073978im
+```
 """
 dx_cv(h::GeneralTwoBand,kx,ky) = dμ_cv(hvec(h,kx,ky),dhdkx(h,kx,ky))
 """
     dx_vc(h,kx,ky)
 
 Returns the dipole operator matrix element ⟨ψ-|x|ψ+⟩ at ``\\vec{k}=[k_x,k_y]``.
+
+# Example
+```jldoctest
+julia> h = GappedDirac(1.0); dx_vc(h,1.0,-1.0)
+-0.0610042339640731 + 0.22767090063073978im
+```
 """
 dx_vc(h::GeneralTwoBand,kx,ky) = dμ_vc(hvec(h,kx,ky),dhdkx(h,kx,ky))
 """
     dx_cc(h,kx,ky)
 
 Returns the dipole operator matrix element ⟨ψ+|x|ψ+⟩ at ``\\vec{k}=[k_x,k_y]``.
+
+# Example
+```jldoctest
+julia> h = GappedDirac(1.0); dx_cc(h,1.0,-1.0)
+-0.10566243270259357
+```
 """
 dx_cc(h::GeneralTwoBand,kx,ky) = dx_cc(hvec(h,kx,ky),jac(h,kx,ky))
 """
     dx_vv(h,kx,ky)
 
 Returns the dipole operator matrix element ⟨ψ-|x|ψ-⟩ at ``\\vec{k}=[k_x,k_y]``.
+
+# Example
+```jldoctest
+julia> h = GappedDirac(1.0); dx_vv(h,1.0,-1.0)
+0.10566243270259357
+```
 """
 dx_vv(h::GeneralTwoBand,kx,ky) = dx_vv(hvec(h,kx,ky),jac(h,kx,ky))
 
@@ -202,24 +274,48 @@ dx_vv(h::GeneralTwoBand,kx,ky) = dx_vv(hvec(h,kx,ky),jac(h,kx,ky))
     dy_cv(h,kx,ky)
 
 Returns the dipole operator matrix element ⟨ψ+|y|ψ-⟩ at ``\\vec{k}=[k_x,k_y]``.
+
+# Example
+```jldoctest
+julia> h = GappedDirac(1.0); dy_cv(h,1.0,-1.0)
+-0.22767090063073978 - 0.0610042339640731im
+```
 """
 dy_cv(h::GeneralTwoBand,kx,ky) = dμ_cv(hvec(h,kx,ky),dhdky(h,kx,ky))
 """
     dy_vc(h,kx,ky)
 
 Returns the dipole operator matrix element ⟨ψ-|y|ψ+⟩ at ``\\vec{k}=[k_x,k_y]``.
+
+# Example
+```jldoctest
+julia> h = GappedDirac(1.0); dy_vc(h,1.0,-1.0)
+-0.22767090063073978 + 0.0610042339640731im
+```
 """
 dy_vc(h::GeneralTwoBand,kx,ky) = dμ_vc(hvec(h,kx,ky),dhdky(h,kx,ky))
 """
     dy_cc(h,kx,ky)
 
 Returns the dipole operator matrix element ⟨ψ+|y|ψ+⟩ at ``\\vec{k}=[k_x,k_y]``.
+
+# Example
+```jldoctest
+julia> h = GappedDirac(1.0); dy_cc(h,1.0,-1.0)
+-0.10566243270259357
+```
 """
 dy_cc(h::GeneralTwoBand,kx,ky) = dy_cc(hvec(h,kx,ky),jac(h,kx,ky))
 """
     dy_vv(h,kx,ky)
 
 Returns the dipole operator matrix element ⟨ψ-|y|ψ-⟩ at ``\\vec{k}=[k_x,k_y]``.
+
+# Example
+```jldoctest
+julia> h = GappedDirac(1.0); dy_vv(h,1.0,-1.0)
+0.10566243270259357
+```
 """
 dy_vv(h::GeneralTwoBand,kx,ky) = dy_vv(hvec(h,kx,ky),jac(h,kx,ky))
 
