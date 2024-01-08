@@ -70,7 +70,6 @@ const dipoles_ref = [
     @testset "GappedDirac" begin 
         m = 0.1
         h = GappedDirac(m)
-        href = GappedDiracOld(m)
 
         @testset "$v" for (v,vref) in zip(vels,vels_ref)
             @test [v(h,kx,ky) ≈ vref(m,kx,ky) for kx=ks,ky=ks] |> all
