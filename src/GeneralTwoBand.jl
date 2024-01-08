@@ -4,6 +4,7 @@ export GeneralTwoBand
 
 Supertype of all 2x2 Hamiltonians with all matrixelements via dispatch.
 
+# Idea
 The idea is that all Hamiltonians of the form
 
 ```math
@@ -26,6 +27,11 @@ GeneralTwoBand{T} must then only implement ``\\vec{h}(\\vec{k})`` and its deriva
 abstract type GeneralTwoBand{T} <: Hamiltonian{T} end
 
 export hvec
+"""
+    hvec(h,kx,ky)
+
+Returns ``\\vec{h}(\\vec{k})`` defining the Hamiltonian at ``\vec{k}=[k_x,k_y]``.
+"""
 hvec(h::GeneralTwoBand,kx,ky) = SA[hx(h,kx,ky),hy(h,kx,ky),hz(h,kx,ky)]
 
 export Δϵ,ϵ
