@@ -30,12 +30,22 @@ export hvec
 """
     hvec(h,kx,ky)
 
-Returns ``\\vec{h}(\\vec{k})`` defining the Hamiltonian at ``\vec{k}=[k_x,k_y]``.
+Returns ``\\vec{h}(\\vec{k})`` defining the Hamiltonian at ``\\vec{k}=[k_x,k_y]``.
 """
 hvec(h::GeneralTwoBand,kx,ky) = SA[hx(h,kx,ky),hy(h,kx,ky),hz(h,kx,ky)]
 
 export Δϵ,ϵ
+"""
+    Δϵ(h,kx,ky)
+
+Returns the band energy (valence & conduction) difference at ``\\vec{k}=[k_x,k_y]``.
+"""
 Δϵ(h::GeneralTwoBand,kx,ky) = 2ϵ(h,kx,ky)
+"""
+    ϵ(h,kx,ky)
+
+Returns the eigenenergy of the positive (conduction band) state at ``\\vec{k}=[k_x,k_y]``.
+"""
 ϵ(h::GeneralTwoBand,kx,ky)  = sqrt(hx(h,kx,ky)^2 + hy(h,kx,ky)^2 + hz(h,kx,ky)^2)
 
 
@@ -86,15 +96,55 @@ function vμ_vv(h::SVector{3,<:Number},dh::SVector{3,<:Number})
 end
 
 export vx_cv,vx_vc,vx_cc,vx_vv
+"""
+    vx_cv(h,kx,ky)
+
+Returns the velocity operator matrix element ⟨ψ+|vx|ψ-⟩ at ``\\vec{k}=[k_x,k_y]``.
+"""
 vx_cv(h::GeneralTwoBand,kx,ky) = vμ_cv(hvec(h,kx,ky),dhdkx(h,kx,ky))
+"""
+    vx_vc(h,kx,ky)
+
+Returns the velocity operator matrix element ⟨ψ-|vx|ψ+⟩ at ``\\vec{k}=[k_x,k_y]``.
+"""
 vx_vc(h::GeneralTwoBand,kx,ky) = vμ_vc(hvec(h,kx,ky),dhdkx(h,kx,ky))
+"""
+    vx_cc(h,kx,ky)
+
+Returns the velocity operator matrix element ⟨ψ+|vx|ψ+⟩ at ``\\vec{k}=[k_x,k_y]``.
+"""
 vx_cc(h::GeneralTwoBand,kx,ky) = vμ_cc(hvec(h,kx,ky),dhdkx(h,kx,ky))
+"""
+    vx_vv(h,kx,ky)
+
+Returns the velocity operator matrix element ⟨ψ-|vx|ψ-⟩ at ``\\vec{k}=[k_x,k_y]``.
+"""
 vx_vv(h::GeneralTwoBand,kx,ky) = vμ_vv(hvec(h,kx,ky),dhdkx(h,kx,ky))
 
 export vy_cv,vy_vc,vy_cc,vy_vv
+"""
+    vy_cv(h,kx,ky)
+
+Returns the velocity operator matrix element ⟨ψ+|vy|ψ-⟩ at ``\\vec{k}=[k_x,k_y]``.
+"""
 vy_cv(h::GeneralTwoBand,kx,ky) = vμ_cv(hvec(h,kx,ky),dhdky(h,kx,ky))
+"""
+    vy_vc(h,kx,ky)
+
+Returns the velocity operator matrix element ⟨ψ-|vy|ψ+⟩ at ``\\vec{k}=[k_x,k_y]``.
+"""
 vy_vc(h::GeneralTwoBand,kx,ky) = vμ_vc(hvec(h,kx,ky),dhdky(h,kx,ky))
+"""
+    vy_cc(h,kx,ky)
+
+Returns the velocity operator matrix element ⟨ψ+|vy|ψ+⟩ at ``\\vec{k}=[k_x,k_y]``.
+"""
 vy_cc(h::GeneralTwoBand,kx,ky) = vμ_cc(hvec(h,kx,ky),dhdky(h,kx,ky))
+"""
+    vy_vv(h,kx,ky)
+
+Returns the velocity operator matrix element ⟨ψ-|vy|ψ-⟩ at ``\\vec{k}=[k_x,k_y]``.
+"""
 vy_vv(h::GeneralTwoBand,kx,ky) = vμ_vv(hvec(h,kx,ky),dhdky(h,kx,ky))
 
 
@@ -122,14 +172,55 @@ function dy_vv(h::SVector{3,<:Number},jac::SMatrix{3,3,<:Number})
     return -(jac[1,2]*h[2] - h[1]*jac[2,2]) / n2(h)
 end
 
+"""
+    dx_cv(h,kx,ky)
+
+Returns the dipole operator matrix element ⟨ψ+|x|ψ-⟩ at ``\\vec{k}=[k_x,k_y]``.
+"""
 dx_cv(h::GeneralTwoBand,kx,ky) = dμ_cv(hvec(h,kx,ky),dhdkx(h,kx,ky))
+"""
+    dx_vc(h,kx,ky)
+
+Returns the dipole operator matrix element ⟨ψ-|x|ψ+⟩ at ``\\vec{k}=[k_x,k_y]``.
+"""
 dx_vc(h::GeneralTwoBand,kx,ky) = dμ_vc(hvec(h,kx,ky),dhdkx(h,kx,ky))
+"""
+    dx_cc(h,kx,ky)
+
+Returns the dipole operator matrix element ⟨ψ+|x|ψ+⟩ at ``\\vec{k}=[k_x,k_y]``.
+"""
 dx_cc(h::GeneralTwoBand,kx,ky) = dx_cc(hvec(h,kx,ky),jac(h,kx,ky))
+"""
+    dx_vv(h,kx,ky)
+
+Returns the dipole operator matrix element ⟨ψ-|x|ψ-⟩ at ``\\vec{k}=[k_x,k_y]``.
+"""
 dx_vv(h::GeneralTwoBand,kx,ky) = dx_vv(hvec(h,kx,ky),jac(h,kx,ky))
 
+
+"""
+    dy_cv(h,kx,ky)
+
+Returns the dipole operator matrix element ⟨ψ+|y|ψ-⟩ at ``\\vec{k}=[k_x,k_y]``.
+"""
 dy_cv(h::GeneralTwoBand,kx,ky) = dμ_cv(hvec(h,kx,ky),dhdky(h,kx,ky))
+"""
+    dy_vc(h,kx,ky)
+
+Returns the dipole operator matrix element ⟨ψ-|y|ψ+⟩ at ``\\vec{k}=[k_x,k_y]``.
+"""
 dy_vc(h::GeneralTwoBand,kx,ky) = dμ_vc(hvec(h,kx,ky),dhdky(h,kx,ky))
+"""
+    dy_cc(h,kx,ky)
+
+Returns the dipole operator matrix element ⟨ψ+|y|ψ+⟩ at ``\\vec{k}=[k_x,k_y]``.
+"""
 dy_cc(h::GeneralTwoBand,kx,ky) = dy_cc(hvec(h,kx,ky),jac(h,kx,ky))
+"""
+    dy_vv(h,kx,ky)
+
+Returns the dipole operator matrix element ⟨ψ-|y|ψ-⟩ at ``\\vec{k}=[k_x,k_y]``.
+"""
 dy_vv(h::GeneralTwoBand,kx,ky) = dy_vv(hvec(h,kx,ky),jac(h,kx,ky))
 
 
