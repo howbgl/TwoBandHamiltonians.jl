@@ -33,14 +33,22 @@ hy(h::GappedDirac)          = quote ky end
 hz(h::GappedDirac,kx,ky)    = h.m
 hz(h::GappedDirac)          = quote $(h.m) end
 
-dhdkx(h::GappedDirac,kx,ky) = SA[one(typeof(h.m)),zero(typeof(h.m)),zero(typeof(h.m))]
-dhdky(h::GappedDirac,kx,ky) = SA[zero(typeof(h.m)),one(typeof(h.m)),zero(typeof(h.m))]
+dhdkx(h::GappedDirac,kx,ky) = SA[one(h.m),zero(h.m),zero(h.m)]
+dhdkx(h::GappedDirac)       = SA[one(h.m),zero(h.m),zero(h.m)]
+
+dhdky(h::GappedDirac,kx,ky) = SA[zero(h.m),one(h.m),zero(h.m)]
+dhdky(h::GappedDirac)       = SA[zero(h.m),one(h.m),zero(h.m)]
 
 # Jacobian ∂h_i/∂k_j
 jac(h::GappedDirac,kx,ky) = SA[
     one(h.m) zero(h.m)
     zero(h.m) one(h.m)
     zero(h.m) zero(h.m)]
+jac(h::GappedDirac) = SA[
+    one(h.m) zero(h.m)
+    zero(h.m) one(h.m)
+    zero(h.m) zero(h.m)]
+
 
 function printparamsSI(h::GappedDirac,us::UnitScaling;digits=3)
 
