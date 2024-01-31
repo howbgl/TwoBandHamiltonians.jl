@@ -24,9 +24,14 @@ struct GappedDirac{T<:Real} <: GeneralTwoBand{T}
     m::T
 end
 
-hx(h::GappedDirac,kx,ky) = kx
-hy(h::GappedDirac,kx,ky) = ky
-hz(h::GappedDirac,kx,ky) = h.m
+hx(h::GappedDirac,kx,ky)    = kx
+hx(h::GappedDirac)          = quote kx end
+
+hy(h::GappedDirac,kx,ky)    = ky
+hy(h::GappedDirac)          = quote ky end
+
+hz(h::GappedDirac,kx,ky)    = h.m
+hz(h::GappedDirac)          = quote $(h.m) end
 
 dhdkx(h::GappedDirac,kx,ky) = SA[one(typeof(h.m)),zero(typeof(h.m)),zero(typeof(h.m))]
 dhdky(h::GappedDirac,kx,ky) = SA[zero(typeof(h.m)),one(typeof(h.m)),zero(typeof(h.m))]

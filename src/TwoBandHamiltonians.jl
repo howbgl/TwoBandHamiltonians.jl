@@ -10,5 +10,6 @@ include("UnitScaling.jl")
 include("general_hamiltonian/GeneralTwoBand.jl")
 include("GappedDirac.jl")
 include("HexWarpDirac.jl")
+include("utility.jl")
 
 end
