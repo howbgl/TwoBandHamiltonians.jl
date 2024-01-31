@@ -3,6 +3,8 @@ export getΔϵ
 export getϵ
 export GeneralTwoBand
 export hvec
+export Δϵ
+export ϵ
 
 
 """
